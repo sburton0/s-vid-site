@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="S-VID is a techno artist. Listen on Spotify, Apple Music and Bandcamp, and follow @svidmusic on TikTok and Instagram.">
+<meta name="author" content="S-VID">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://s-vid.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>S-VID</title>
+<link rel="preload" href="/fonts/share-tech-mono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/orbitron.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: 'Share Tech Mono'; src: url('/fonts/share-tech-mono.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Orbitron'; src: url('/fonts/orbitron.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
+</style>
+<style>
+:root {
+  --ground: #02030a;
+  --ink: #d8ecff;
+  --signal: #3f8cff;
+  --signal-dim: #4f97ff;
+  --line: rgba(63,140,255,.28);
+  --chroma-r: #ff2a6d;
+  --chroma-c: #3cf2ff;
+  --mono: 'Share Tech Mono', 'Courier New', ui-monospace, monospace;
+  --wide: 'Orbitron', 'Eurostile', 'Arial Black', sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--ground);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ground: #02030a; --ink: #d8ecff; } }
+:root[data-theme="dark"] { --ground: #02030a; --ink: #d8ecff; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--mono); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--chroma-c); outline-offset: 3px; }
+
+/* ---------- hero ---------- */
+.hero { position: relative; height: 100svh; min-height: 520px; max-height: 1100px; overflow: hidden; }
+#crystal { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.scan { position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.38) 0 2px, transparent 2px 4px); }
+.vignette { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,.75) 100%); }
+.hero-id { position: absolute; left: clamp(20px, 4vw, 48px); top: clamp(20px, 4vw, 44px); display: flex; flex-direction: column; gap: 14px; z-index: 2; }
+.hero-id h1 { margin: 0; line-height: 0; }
+.wordmark { width: clamp(150px, 22vw, 260px); height: auto; overflow: visible; }
+.scroll-cue { position: absolute; left: 50%; bottom: clamp(20px, 4vw, 40px); transform: translateX(-50%); z-index: 2; color: var(--signal-dim); font-size: 12px; letter-spacing: .2em; text-decoration: none; padding: 12px 16px; }
+.scroll-cue:hover { color: var(--ink); }
+
+/* ---------- OSD menu ---------- */
+main.menu { position: relative; padding: clamp(48px, 8vw, 96px) clamp(20px, 5vw, 48px) 40px; }
+main.menu::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.3) 0 2px, transparent 2px 4px); }
+.wrap { position: relative; max-width: 720px; margin: 0 auto; }
+.panel { border: 2px solid var(--line); padding: clamp(18px, 4vw, 32px); box-shadow: 0 0 40px rgba(63,140,255,.08) inset; }
+.panel + .panel { margin-top: 28px; }
+.panel h2 { margin: 0 0 18px; font-family: var(--wide); font-weight: 500; font-size: 13px; letter-spacing: .5em; color: var(--signal); text-shadow: 0 0 10px rgba(63,140,255,.6); }
+
+.feature { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 16px 24px; }
+.feature .title { font-family: var(--wide); font-weight: 500; font-size: clamp(26px, 6vw, 40px); letter-spacing: .14em; margin: 0; color: var(--ink);
+  text-shadow: -2px 0 rgba(255,42,109,.55), 2px 0 rgba(60,242,255,.55), 0 0 18px rgba(63,140,255,.55); }
+.feature .kind { margin: 6px 0 0; color: var(--signal-dim); letter-spacing: .1em; font-size: 13px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 26px; text-decoration: none;
+  font-family: var(--mono); font-size: 15px; letter-spacing: .16em; color: var(--ground); background: var(--signal);
+  box-shadow: 0 0 22px rgba(63,140,255,.55); transition: background .15s, box-shadow .15s; }
+.btn:hover { background: var(--ink); box-shadow: -3px 0 0 var(--chroma-r), 3px 0 0 var(--chroma-c), 0 0 26px rgba(63,140,255,.7); }
+
+.links { list-style: none; margin: 0; padding: 0; }
+.links a { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 52px; padding: 0 14px;
+  text-decoration: none; font-size: 17px; letter-spacing: .14em; color: var(--ink); border-bottom: 1px solid rgba(63,140,255,.14); }
+.links li:last-child a { border-bottom: 0; }
+.links a .go { color: var(--signal-dim); font-size: 13px; letter-spacing: .1em; }
+.links a:hover, .links a:focus-visible { background: var(--signal); color: var(--ground); outline: none; }
+.links a:hover .go, .links a:focus-visible .go { color: var(--ground); }
+.links a .cursor { display: inline-block; width: .55em; height: .7em; margin-right: .7em; background: var(--ground); clip-path: polygon(0 0, 100% 50%, 0 100%); vertical-align: .02em; }
+
+footer { position: relative; max-width: 720px; margin: 0 auto; padding: 28px clamp(20px, 5vw, 48px) 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; letter-spacing: .1em; color: var(--signal-dim); }
+footer a { color: var(--signal-dim); padding: 6px 0; }
+footer a:hover { color: var(--ink); }
+
+@media (max-width: 600px) {
+  .feature { grid-template-columns: minmax(0, 1fr); }
+  .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="crystal" aria-hidden="true"></canvas>
+  <div class="scan"></div>
+  <div class="vignette"></div>
+
+  <div class="hero-id">
+    <h1>
+      <svg class="wordmark" viewBox="-12 -6 224 52" role="img" aria-label="S-VID">
+        <defs>
+          <filter id="lg" x="-10%" y="-40%" width="120%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <clipPath id="lt"><rect x="-20" y="-10" width="250" height="29.5"/></clipPath>
+          <clipPath id="lb"><rect x="-20" y="20.5" width="250" height="40"/></clipPath>
+          <path id="l" d="M45,3 H10 Q3,3 3,10 V13 Q3,20 10,20 H38 Q45,20 45,27 V30 Q45,37 38,37 H3 M58,15 H72 M58,25 H72 M82,3 L106,37 L130,3 M143,3 V37 M156,3 H191 Q198,3 198,10 V30 Q198,37 191,37 H156 Z" fill="none" stroke-linejoin="round"/>
+        </defs>
+        <g opacity=".7" stroke-width="2.2"><g stroke="#ff2a6d"><g clip-path="url(#lt)" transform="translate(-7.5,0)"><use href="#l"/></g></g><g stroke="#3cf2ff"><g clip-path="url(#lb)" transform="translate(7.5,.5)"><use href="#l"/></g></g></g>
+        <g filter="url(#lg)" stroke="#3f8cff" stroke-width="4.2"><g clip-path="url(#lt)" transform="translate(-5,0)"><use href="#l"/></g><g clip-path="url(#lb)" transform="translate(5,0)"><use href="#l"/></g></g>
+        <g stroke="#d8ecff" stroke-width="2.2"><g clip-path="url(#lt)" transform="translate(-5,0)"><use href="#l"/></g><g clip-path="url(#lb)" transform="translate(5,0)"><use href="#l"/></g></g>
+      </svg>
+    </h1>
+  </div>
+
+  <a class="scroll-cue" href="#menu">▼ MENU</a>
+</header>
+
+<main class="menu" id="menu">
+  <div class="wrap">
+    <section class="panel" aria-labelledby="h-latest">
+      <h2 id="h-latest">LATEST</h2>
+      <div class="feature">
+        <div>
+          <p class="title">PROTOCOL</p>
+          <p class="kind">NEW SINGLE · OUT NOW</p>
+        </div>
+        <a class="btn" href="https://distrokid.com/hyperfollow/svid2/protocol?ref=release" aria-label="Listen to Protocol">LISTEN</a>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="h-listen">
+      <h2 id="h-listen">LISTEN</h2>
+      <ul class="links">
+        <li><a href="https://open.spotify.com/artist/5mola1JDrYIXudsjyvMAzW"><span><span class="cursor" aria-hidden="true"></span>SPOTIFY</span><span class="go">OPEN</span></a></li>
+        <li><a href="https://music.apple.com/us/artist/s-vid/1826663334"><span><span class="cursor" aria-hidden="true"></span>APPLE MUSIC</span><span class="go">OPEN</span></a></li>
+        <li><a href="https://svidmusic.bandcamp.com/"><span><span class="cursor" aria-hidden="true"></span>BANDCAMP</span><span class="go">OPEN</span></a></li>
+      </ul>
+    </section>
+
+    <section class="panel" aria-labelledby="h-follow">
+      <h2 id="h-follow">FOLLOW</h2>
+      <ul class="links">
+        <li><a href="https://www.tiktok.com/@svidmusic"><span><span class="cursor" aria-hidden="true"></span>TIKTOK</span><span class="go">@SVIDMUSIC</span></a></li>
+        <li><a href="https://instagram.com/svidmusic"><span><span class="cursor" aria-hidden="true"></span>INSTAGRAM</span><span class="go">@SVIDMUSIC</span></a></li>
+        <li><a href="mailto:scott@s-vid.com"><span><span class="cursor" aria-hidden="true"></span>EMAIL</span><span class="go">SCOTT@S-VID.COM</span></a></li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <span>© S-VID</span>
+  <a href="/privacy.html">PRIVACY POLICY</a>
+</footer>
+
+<script>
+(() => {
+  const cv = document.getElementById('crystal');
+  const ctx = cv.getContext('2d');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W = 0, H = 0, DPR = 1, R = 0, CX = 0, CY = 0;
+
+  // ---- crystal geometry: two jittered rings + two apexes ----
+  let seed = 11;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const V = [];
+  V.push([0.05, -1.45, 0.1]);                       // top apex
+  for (let i = 0; i < 6; i++) {                     // upper ring
+    const a = i / 6 * Math.PI * 2;
+    V.push([Math.cos(a) * (1 + rnd() * .15), -0.4 + rnd() * .15, Math.sin(a) * (1 + rnd() * .15)]);
+  }
+  for (let i = 0; i < 6; i++) {                     // lower ring (offset)
+    const a = (i + .5) / 6 * Math.PI * 2;
+    V.push([Math.cos(a) * (.85 + rnd() * .15), 0.45 + rnd() * .15, Math.sin(a) * (.85 + rnd() * .15)]);
+  }
+  V.push([-0.05, 1.35, -0.1]);                      // bottom apex
+  const E = [];
+  for (let i = 0; i < 6; i++) {
+    const u = 1 + i, un = 1 + (i + 1) % 6, l = 7 + i, ln = 7 + (i + 1) % 6;
+    E.push([0, u], [u, un], [u, l], [l, un], [l, ln], [l, 13]);
+  }
+
+  // ---- particles ----
+  const frags = [], bars = [];
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    const r = cv.getBoundingClientRect();
+    W = r.width; H = r.height;
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const narrow = W < 700;
+    R = Math.min(W, H) * (narrow ? 0.28 : 0.26);
+    CX = W * (narrow ? 0.42 : 0.4);
+    CY = H * 0.5;
+  }
+
+  function project(p, t) {
+    const ay = t * 0.22, ax = 0.32 + Math.sin(t * 0.17) * 0.12;
+    let [x, y, z] = p;
+    let c = Math.cos(ay), s = Math.sin(ay);
+    [x, z] = [x * c + z * s, -x * s + z * c];
+    c = Math.cos(ax); s = Math.sin(ax);
+    [y, z] = [y * c - z * s, y * s + z * c];
+    const k = 3.2 / (3.2 + z);
+    return [CX + x * R * k, CY + y * R * k, z];
+  }
+
+  const hash = (a, b, c) => { const h = Math.sin(a * 127.1 + b * 311.7 + c * 74.7) * 43758.5453; return h - Math.floor(h); };
+
+  function strokeGlow(path, wCore) {
+    ctx.strokeStyle = 'rgba(63,140,255,.16)'; ctx.lineWidth = wCore * 7; path(); ctx.stroke();
+    ctx.strokeStyle = 'rgba(63,140,255,.45)'; ctx.lineWidth = wCore * 3; path(); ctx.stroke();
+    ctx.strokeStyle = 'rgba(216,236,255,.95)'; ctx.lineWidth = wCore; path(); ctx.stroke();
+  }
+
+  function frame(t, dt) {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = '#02030a';
+    ctx.fillRect(0, 0, W, H);
+
+    // halo
+    const g = ctx.createRadialGradient(CX, CY, 0, CX, CY, R * 2.2);
+    g.addColorStop(0, 'rgba(29,75,216,.26)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineCap = 'round';
+
+    const P = V.map(v => project(v, t));
+    const cut = CX + R * (0.15 + Math.sin(t * 0.5) * 0.22);
+    const tick = Math.floor(t * 9);
+    const segs = [];
+    const N = 14;
+
+    E.forEach(([a, b], ei) => {
+      const A = P[a], B = P[b];
+      for (let i = 0; i < N; i++) {
+        const x0 = A[0] + (B[0] - A[0]) * i / N, y0 = A[1] + (B[1] - A[1]) * i / N;
+        const x1 = A[0] + (B[0] - A[0]) * (i + 1) / N, y1 = A[1] + (B[1] - A[1]) * (i + 1) / N;
+        const over = ((x0 + x1) / 2 - cut) / R;
+        if (over <= 0) { segs.push([x0, y0, x1, y1]); continue; }
+        if (hash(ei, i, tick) < 0.62 - over * 0.55) {
+          const dx = over * R * 0.25 * hash(ei, i, tick + 1);
+          segs.push([x0 + dx, y0, x1 + dx, y1]);
+        }
+        if (!reduce && Math.random() < 0.012 * dt * 60 * Math.min(1, over * 2)) {
+          frags.push({ x: x0, y: y0, vx: 40 + Math.random() * 150, vy: (Math.random() - .5) * 20,
+            r: 3 + Math.random() * 10 * (R / 200), a: Math.random() * 6.28, va: (Math.random() - .5) * 2,
+            life: 0, max: 1.4 + Math.random() * 2 });
+        }
+      }
+    });
+    strokeGlow(() => { ctx.beginPath(); segs.forEach(s => { ctx.moveTo(s[0], s[1]); ctx.lineTo(s[2], s[3]); }); }, 1.3);
+
+    // glitch bars
+    if (!reduce) {
+      const spawn = 2 + Math.random() * 3;
+      for (let i = 0; i < spawn; i++) {
+        bars.push({ x: cut - R * .1 + Math.random() * Math.max(W - cut, R) * 0.9, y: CY + (Math.random() * 2 - 1) * R * 1.3,
+          w: (6 + Math.random() * 90) * (Math.random() < .08 ? 4 : 1), h: [2, 3, 3, 4, 5][Math.floor(Math.random() * 5)],
+          life: 0, max: .08 + Math.random() * .5, c: Math.random() });
+      }
+    } else if (bars.length === 0) {
+      for (let i = 0; i < 160; i++) bars.push({ x: cut + Math.random() * (W - cut) * .8, y: CY + (Math.random() * 2 - 1) * R * 1.3, w: 6 + Math.random() * 70, h: 3, life: 0, max: 1e9, c: Math.random() });
+    }
+    for (let i = bars.length - 1; i >= 0; i--) {
+      const b = bars[i]; b.life += dt;
+      if (b.life > b.max) { bars.splice(i, 1); continue; }
+      const fall = 1 - Math.max(0, (b.x - cut) / (W - cut + 1)) * .7;
+      const al = Math.min(1, (1 - b.life / b.max) * 2) * .55 * fall;
+      ctx.fillStyle = b.c < .5 ? `rgba(63,140,255,${al})` : b.c < .8 ? `rgba(120,190,255,${al})` : `rgba(180,225,255,${al})`;
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+      if (b.c > .6) { ctx.fillStyle = `rgba(255,42,109,${al * .6})`; ctx.fillRect(b.x - 3, b.y, b.w * .6, b.h); }
+      if (b.c < .35) { ctx.fillStyle = `rgba(60,242,255,${al * .6})`; ctx.fillRect(b.x + 3, b.y + 1, b.w * .5, b.h); }
+    }
+
+    // fragments
+    for (let i = frags.length - 1; i >= 0; i--) {
+      const f = frags[i]; f.life += dt;
+      if (f.life > f.max) { frags.splice(i, 1); continue; }
+      f.x += f.vx * dt; f.y += f.vy * dt; f.a += f.va * dt; f.vx *= 1 + dt * .4;
+      const al = 1 - f.life / f.max;
+      ctx.globalAlpha = al;
+      strokeGlow(() => {
+        ctx.beginPath();
+        for (let k = 0; k < 3; k++) {
+          const ang = f.a + k * 2.094;
+          const px = f.x + Math.cos(ang) * f.r, py = f.y + Math.sin(ang) * f.r;
+          k ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+        }
+        ctx.closePath();
+      }, 1);
+      ctx.globalAlpha = 1;
+    }
+
+    // occasional full-width tracking tear
+    if (!reduce && Math.random() < 0.015) {
+      const y = Math.random() * H;
+      ctx.fillStyle = 'rgba(63,140,255,.08)';
+      ctx.fillRect(0, y, W, 2 + Math.random() * 6);
+    }
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  if (reduce) { frame(6, 0); window.addEventListener('resize', () => frame(6, 0)); return; }
+
+  let running = true, last = performance.now(), t = 0, raf = 0;
+  function loop(now) {
+    const dt = Math.min(.05, (now - last) / 1000); last = now; t += dt;
+    frame(t, dt);
+    if (running) raf = requestAnimationFrame(loop);
+  }
+  const start = () => { if (!running) { running = true; last = performance.now(); raf = requestAnimationFrame(loop); } };
+  const stop = () => { running = false; cancelAnimationFrame(raf); };
+  new IntersectionObserver(([e]) => e.isIntersecting ? start() : stop()).observe(cv);
+  document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+  raf = requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
